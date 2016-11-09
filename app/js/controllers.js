@@ -26,17 +26,10 @@ angular.module('openWeatherApp.controllers', [])
     $scope.stormLocations = stormLocations;
     $scope.iconBaseUrl = 'http://openweathermap.org/img/w/';
 
-    $scope.forecast = openWeatherMap.queryForecastDaily({
+ $rootScope.forecast = openWeatherMap.queryForecastDaily({
       location: exampleLocations[ 0 ]
     });
-       $scope.forecast.$promise.then(function(data){
-       console.log(data.list[2].temp);
-        for(var x=0;x<data.list.length;x++){
-          var radia=Math.floor((Math.random()*20)+1);
-          data.list[x].radiacion=radia;
-        }
-        console.log("Data-list",data);
-       });
+  
 
 
        //////////////////////
@@ -123,9 +116,9 @@ angular.module('openWeatherApp.controllers', [])
     map.validateNow();
   }
 map.addListener("clickMapObject", function(event) {
-    console.log(event.mapObject);
+  
   $scope.setLocation(event.mapObject.title);
-    $scope.forecast.$promise.then(function(data){
+ $rootScope.forecast.$promise.then(function(data){
 
        console.log(data.list[2].temp);
         for(var x=0;x<data.list.length;x++){
@@ -165,15 +158,18 @@ map.addListener("clickMapObject", function(event) {
 
       $scope.hasState = 'has-success';
       console.log("LOCACION==",$scope.location);
-      $scope.forecast = openWeatherMap.queryForecastDaily({
+   $rootScope.forecast = openWeatherMap.queryForecastDaily({
         location: $scope.location
       });
-      $scope.forecast.$promise.then(function(data){
-        console.log("Data para location",$scope.location)
+
+      $scope.datos={};
+
+   $rootScope.forecast.$promise.then(function(data){
+ 
           for(var i=0;i<data.list.length;i++){
               (function(i) {
               var fecha=Date(data.list[i].dt);
-            var fecha2=new Date(fecha);
+              var fecha2=new Date(fecha);
             if(fecha2.getDate()+(i-1)<10){
              var dias="0"+(fecha2.getDate()+(i-1));
             }
@@ -185,11 +181,11 @@ map.addListener("clickMapObject", function(event) {
               var lon=parseInt(data.city.coord.lon);
               var lat=parseInt(data.city.coord.lat);
               var url="http://api.openweathermap.org/v3/uvi/"+lat+","+lon+"/"+fechax+".json?appid=943d3a75c72ea297aa73f129275d2140";
-              console.log(url);
 
             $http.get(url)
             .success(function (dat) {
-               data.list[i].radiacion=dat.data;
+            data.list[i].radiacion=dat.data;
+               console.log("Sucesss=",$scope.forecast.list[i].radiacion)
             });
 
 
@@ -200,8 +196,8 @@ map.addListener("clickMapObject", function(event) {
 
         }
          
-     
        });
+      console.log($scope.forecast)
 
     }
 

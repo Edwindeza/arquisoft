@@ -46,9 +46,9 @@
                     <b>Ciudades</b>
                 </a>
                  
-                <ul class="dropbox_citys">
-                    <li ng-repeat="post in exampleLocations | orderBy:'name':true" ng-click="setLocation(post)" >
-                        <a href="#/forecast">{{post}}</a>
+                <ul  class="dropbox_citys">
+                    <li ng-repeat="post in exampleLocations | orderBy:'name':true"  >
+                        <a ng-click="setLocation(post)">{{post}}</a>
                     </li>
                 </ul>
             </li>
