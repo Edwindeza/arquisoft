@@ -27,9 +27,11 @@ angular.module('openWeatherApp.controllers', [])
     $scope.iconBaseUrl = 'http://openweathermap.org/img/w/';
 
     $scope.forecast = openWeatherMap.queryForecastDaily({
+
+ $rootScope.forecast = openWeatherMap.queryForecastDaily({
       location: exampleLocations[ 0 ]
     });
-  
+  });
 
 
        //////////////////////
@@ -118,7 +120,9 @@ angular.module('openWeatherApp.controllers', [])
 map.addListener("clickMapObject", function(event) {
   
   $scope.setLocation(event.mapObject.title);
-    $scope.forecast.$promise.then(function(data){
+
+ $rootScope.forecast.$promise.then(function(data){
+
 
        console.log(data.list[2].temp);
         for(var x=0;x<data.list.length;x++){
@@ -157,13 +161,17 @@ map.addListener("clickMapObject", function(event) {
       }
 
       $scope.hasState = 'has-success';
-      console.log("LOCACION==",$scope.location);
-      $scope.forecast = openWeatherMap.queryForecastDaily({
+
+
+
+   $rootScope.forecast = openWeatherMap.queryForecastDaily({
         location: $scope.location
       });
 
+      $scope.datos={};
 
-      $scope.forecast.$promise.then(function(data){
+   $rootScope.forecast.$promise.then(function(data){
+
  
           for(var i=0;i<data.list.length;i++){
               (function(i) {
@@ -196,6 +204,7 @@ map.addListener("clickMapObject", function(event) {
         }
          
        });
+
     }
 
 
