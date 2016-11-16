@@ -15,7 +15,7 @@ router.post("/login",passport.authenticate('local'),(req,res)=>{
 	res.redirect("/");
 });
 
-router.post("/signup",(req,res)=>{
+router.post("/signup",(req,res,next)=>{
 	var us=new User({
 		username:req.body.username,
 		email:req.body.email

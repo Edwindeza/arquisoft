@@ -26,12 +26,11 @@ angular.module('openWeatherApp.controllers', [])
     $scope.stormLocations = stormLocations;
     $scope.iconBaseUrl = 'http://openweathermap.org/img/w/';
 
-    $scope.forecast = openWeatherMap.queryForecastDaily({
 
  $rootScope.forecast = openWeatherMap.queryForecastDaily({
       location: exampleLocations[ 0 ]
     });
-  });
+
 
 
        //////////////////////
