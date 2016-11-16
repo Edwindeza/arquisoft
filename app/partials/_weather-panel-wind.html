@@ -1,0 +1,27 @@
+
+<div class="weather panel panel-primary">
+    <div class="panel-heading">{{parseDate(useDayForecast.dt) | date:'fullDate'}}</div>
+    <div class="panel-body">
+        <div>
+            <p class="lead">
+                <img ng-src="{{getIconImageUrl(useDayForecast.weather[0].icon)}}" />
+                Velocidad: {{ (useDayForecast.speed * 3.6).toFixed(2) }} km/h ({{useDayForecast.speed}} m/s)<br />
+                Radiación UV : {{useDayForecast.radiacion}} &nbsp;&nbsp; <br> <br>                 
+                
+            </p>
+            <p>
+                {{useDayForecast.temp.day | number:1}}&#176;C {{useDayForecast.weather[0].main}}&nbsp;&#126;&nbsp;
+                {{useDayForecast.weather[0].description.}}&nbsp;&#126;&nbsp;
+                Máxima: {{useDayForecast.temp.max}}&#176;C&nbsp;&#126;&nbsp;
+                Baja: {{useDayForecast.temp.min}}&#176;C
+            </p>
+        </div>
+    </div>
+    <div class="panel-footer">
+        <small>
+            Día: {{useDayForecast.temp.day}}&#176;C&nbsp;&#126;&nbsp;
+            Noche: {{useDayForecast.temp.night}}&#176;C&nbsp;&#126;&nbsp;
+            Humedad: {{useDayForecast.humidity}}%&nbsp;&#126;&nbsp;
+        </small>
+    </div>
+</div>
