@@ -62,6 +62,12 @@ app.get("/",(req,res)=>{
 
 res.sendFile("inicio.html",{root:"./app"});
 });
+
+
+app.get("/mapa",(req,res)=>{
+
+	res.sendFile("mapa.html",{root:"./app/partials"});
+});
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;

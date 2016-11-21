@@ -70,7 +70,7 @@ localStorage.clear();
     "theme": "light",
     "colorSteps": 10,
     "dataProvider": {
-      "mapURL": "peruLow.svg",
+      "mapURL": "/img/peruLow.svg",
       "getAreasFromMap": true,
       "zoomLevel": 0.9,
       "areas": [],
@@ -117,10 +117,19 @@ localStorage.clear();
       
       });
 */
+
+
+
     for ( var i = 0; i < map.dataProvider.areas.length; i++ ) {
       map.dataProvider.areas[ i ].value = Math.round( Math.random() * 10000 );
   
     }
+
+
+
+
+
+
     map.dataGenerated = true;
     map.validateNow();
   }
