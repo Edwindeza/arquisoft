@@ -70,12 +70,31 @@
 
         <!-- Page Content -->
         <div class="col-xs-9 col-xs-offset-3 sect-2">
-            <div class="login col-xs-12 sect-2">
-                <div class="login_2 col-xs-12">
-                    <a class="login_reg" href="#"><b>registrate!</b></a>
-                    <a class="login_ini" href="#" data-toggle="modal" data-target="#IniSesion"><b>Iniciar sesión</b></a>
-                </div>            
+            
+            <div ng-if="userapp">
+                    <p> {{userapp}}</p>
+          
+          
+                    <div class="login col-xs-12 sect-2">
+                        <div class="login_2 col-xs-12">
+                            <a class="login_reg" href="#"><b>{{userapp.username}}</b></a>
+                            <a class="login_reg" href="#" ng-click="logout()"><b>Salir</b></a>
+                        </div>            
+                    </div>
+
             </div>
+            <div ng-if="!userapp">
+            <p> {{userapp}}</p>
+           
+                    <div class="login col-xs-12 sect-2">
+                        <div class="login_2 col-xs-12">
+                            <a class="login_reg" href="/user/login#signup"><b>registrate!</b></a>
+                            <a class="login_ini" href="/user/login" data-toggle="modal" data-target="#IniSesion"><b>Iniciar sesión</b></a>
+                        </div>            
+                    </div>
+
+        
+            </div> 
             <div id="page-content-wrapper" class="col-xs-12">
                 <div class="container-fluid">
                         <div class="col-xs-12 sect-2">

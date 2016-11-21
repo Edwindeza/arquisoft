@@ -29,6 +29,8 @@ app.set('view engine', 'ejs');
 //Configuración archivos estáticos
 app.use("/css",express.static(raizPlantilla+"/css"));
 app.use("/css",express.static("./app/css"));
+
+app.use("/js",express.static("./plantillas/scripts"));
 app.use("/js",express.static(raizPlantilla+"/js"));
 app.use("/js",express.static("./app/js"));
 app.use("/partials",express.static("./app/partials"));
@@ -57,8 +59,8 @@ app.use("/user",authRoutes);
 //Endpoint de arranque
 //isLogged(raizPlantilla)
 app.get("/",(req,res)=>{
-	console.log(req.user);
-res.render("inicio",{user:req.user});
+
+res.sendFile("inicio.html",{root:"./app"});
 });
 app.use(function(req, res, next) {
   var err = new Error('Not Found');

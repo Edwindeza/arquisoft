@@ -11,7 +11,11 @@ angular.module('openWeatherApp.controllers', [])
 
     $scope.message = '';
     $scope.hasState = '';
+    $scope.userapp={};
 
+   $scope.userapp=JSON.parse(localStorage.getItem("user"));
+   console.log(localStorage);
+   console.log(localStorage.getItem("user"))
     var datos=[];
     // Expose example locations to $scope
    Ciudades.getAll().then(function(res){
@@ -36,6 +40,10 @@ angular.module('openWeatherApp.controllers', [])
        //////////////////////
 
 
+$scope.logout=function(){
+console.log("Limpiar");
+localStorage.clear();
+}
 
 
   var defaultMap = "peruLow";

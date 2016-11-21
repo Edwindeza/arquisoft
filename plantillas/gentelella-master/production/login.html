@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="app">
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <!-- Meta, title, CSS, favicons, etc. -->
@@ -20,9 +20,26 @@
 
     <!-- Custom Theme Style -->
     <link href="../build/css/custom.min.css" rel="stylesheet">
+  
+  <script src="../vendors/jquery/dist/jquery.min.js"></script>
+
+
+
+   <script src="../vendors/bootstrap/dist/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.13.0/moment.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.37/js/bootstrap-datetimepicker.min.js"></script>
+
+   <script type="text/javascript">
+  $(function() {
+    console.log("Llego");
+    $('#datetimepicker1').datetimepicker();
+  });
+</script>         
   </head>
 
-  <body class="login">
+  <body ng-controller="login" class="login">
     <div>
       <a class="hiddenanchor" id="signup"></a>
       <a class="hiddenanchor" id="signin"></a>
@@ -30,16 +47,16 @@
       <div class="login_wrapper">
         <div class="animate form login_form">
           <section class="login_content">
-            <form action="/user/login" method="POST" enctype="application/json">
+            <form >
               <h1>Login Form</h1>
               <div>
-                <input type="text" class="form-control" placeholder="Username" name="username" required="" />
+                <input type="text" class="form-control" placeholder="Username" name="username" ng-model="userlogin.username" required="" />
               </div>
               <div>
-                <input type="password" name="password" class="form-control" placeholder="Password" required="" />
+                <input type="password" name="password" class="form-control" placeholder="Password" ng-model="userlogin.password" required="" />
               </div>
               <div>
-                <button type="submit" class="btn btn-default submit" >Submit</button>
+                <button ng-click="login()" class="btn btn-default submit" >Submit</button>
           
                 <a class="reset_pass" href="#">Lost your password?</a>
               </div>
@@ -65,19 +82,44 @@
 
         <div id="register" class="animate form registration_form">
           <section class="login_content">
-            <form action="/user/signup" enctype="application/json" method="POST">
+            <form>
               <h1>Create Account</h1>
               <div>
-                <input type="text" class="form-control" placeholder="Username" required="" name="username"/>
+              <input type="text" class="form-control" placeholder="Nombres" name="first_name" ng-model="user.first_name" required="" />
               </div>
               <div>
-                <input type="email" class="form-control" placeholder="Email" required="" name="email"/>
+                <input type="text" class="form-control" placeholder="Apellidos" name="last_name" ng-model="user.last_name" required="" />
+              </div>    
+
+              <div class="radio">
+                  <label class="radio-inline"><input type="radio" name="gender" ng-model="user.gender">Masculino</label>
+              </div>
+              <div class="radio">
+                  <label class="radio-inline"><input type="radio" ng-model="user.gender" name="gender">Femenino</label>
+
+              </div>    
+
+              <p>Genero {{user.gender}}</p>
+            <div class="form-group">
+                <div class='input-group date' id='datetimepicker1'>
+                    <input type='text' ng-model="user.birth_date" class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+                </div>
+            </div>
+
+              <div>
+                <input type="text" class="form-control" placeholder="Username" required="" name="username" ng-model="user.username"/>
               </div>
               <div>
-                <input type="password" class="form-control" placeholder="Password" required="" name="password"/>
+                <input type="email" class="form-control" placeholder="Email" required="" name="email" ng-model="user.email"/>
               </div>
               <div>
-                <button type="submit" class="btn btn-default submit" >Submit</button>
+                <input type="password" class="form-control" placeholder="Password" required="" name="password" ng-model="user.password"/>
+              </div>
+              <div>
+                <button ng-click="registrar()" class="btn btn-default submit" >Submit</button>
               </div>
 
               <div class="clearfix"></div>
@@ -100,5 +142,9 @@
         </div>
       </div>
     </div>
+
+
+<script type="text/javascript" src="/lib/angular/angular.js"></script>
+<script type="text/javascript" src="/js/loginRegister.js"></script>
   </body>
 </html>
