@@ -134,22 +134,46 @@ localStorage.clear();
     map.validateNow();
   }
 map.addListener("clickMapObject", function(event) {
-  
-  $scope.setLocation(event.mapObject.title);
+     $rootScope.forecast = openWeatherMap.queryForecastDaily({
+        location: event.mapObject.title
+      });
 
- $rootScope.forecast.$promise.then(function(data){
+   $rootScope.forecast.$promise.then(function(data){
+        console.log("DATA DENMTRO FORECAST");
+        console.log(data);
+ 
+          (function(){
+              var fecha=Date(data.list[0].dt);
+              var fecha2=new Date(fecha);
+            if(fecha2.getDate()+(0-1)<10){
+             var dias="0"+(fecha2.getDate()+(0-1));
+            }
+            else{
+              dias=fecha2.getDate()+(0-1);
+            }
+                
+              var fechax=fecha2.getFullYear()+"-"+fecha2.getMonth()+"-"+dias+"Z";
+              var lon=parseInt(data.city.coord.lon);
+              var lat=parseInt(data.city.coord.lat);
+              var url="http://api.openweathermap.org/v3/uvi/"+lat+","+lon+"/"+fechax+".json?appid=943d3a75c72ea297aa73f129275d2140";
 
 
-       console.log(data.list[2].temp);
-        for(var x=0;x<data.list.length;x++){
-          var radia=10+Math.floor((getRandomArbitrary(-2,4)));
-          data.list[x].radiacion=radia;
-        }
-       
+            $http.get(url)
+            .success(function (dat) {
+            document.getElementById("info").innerHTML = 'Clicked ID: ' + event.mapObject.id + ' (' + event.mapObject.title + ')'+"<br>Radiacion="+dat.data+"<br>Humedad="+data.list[0].humidity+"<br>Presion="+data.list[0].pressure+"<br>Temperatura="+data.list[0].temp.eve;
+
+            data.list[0].radiacion=dat.data;
+            });
+
+          
+          })();
         console.log(data.list[0]);
-          document.getElementById("info").innerHTML = 'Clicked ID: ' + event.mapObject.id + ' (' + event.mapObject.title + ')'+"<br>Radiacion="+data.list[0].radiacion+"<br>Humedad="+data.list[0].humidity+"<br>Presion="+data.list[0].pressure+"<br>Temperatura="+data.list[0].temp.eve;
+
 
        });
+
+
+
 });
 
   $scope.setLocation = function(loc) {
