@@ -14,7 +14,8 @@ angular.module('openWeatherApp.directives', [])
 
       scope: {
         useDayForecast: '=showEntry',
-        forecast: '=weatherPanel'
+        forecast: '=weatherPanel',
+        consejos:'=showConsejos'
       },
 
       templateUrl: 'partials/_weather-panel-light.html',

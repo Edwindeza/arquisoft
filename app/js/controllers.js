@@ -8,7 +8,8 @@ angular.module('openWeatherApp.controllers', [])
   .controller('OpenWeatherCtrl',
     ['$scope','$http','$rootScope','exampleLocations','openWeatherMap','stormLocations','ISO3166','Ciudades','rayosUV',
       function($scope,$http,$rootScope,exampleLocations,openWeatherMap,stormLocations,ISO3166,Ciudades,rayosUV) {
-
+    $rootScope.consejosA=[];
+    $rootScope.userFinal={};
     $scope.message = '';
     $scope.hasState = '';
     $scope.userapp={};
@@ -35,7 +36,7 @@ angular.module('openWeatherApp.controllers', [])
       location: exampleLocations[ 0 ]
     });
 
-
+    initUser();
 
        //////////////////////
 
@@ -214,6 +215,7 @@ map.addListener("clickMapObject", function(event) {
 
  
           for(var i=0;i<data.list.length;i++){
+              
               (function(i) {
               var fecha=Date(data.list[i].dt);
               var fecha2=new Date(fecha);
@@ -229,19 +231,68 @@ map.addListener("clickMapObject", function(event) {
               var lat=parseInt(data.city.coord.lat);
               var url="http://api.openweathermap.org/v3/uvi/"+lat+","+lon+"/"+fechax+".json?appid=943d3a75c72ea297aa73f129275d2140";
 
+              console.log("Linea 233 data antes",data);
+              (function(data){
             $http.get(url)
             .success(function (dat) {
-            data.list[i].radiacion=dat.data;
-               console.log("Sucesss=",$scope.forecast.list[i].radiacion)
+
+                console.log("Linea 238 data luego",data);
+
+                (function(data){
+                  console.log("Linea 241 data luego xdD",data)
+                if($rootScope.userFinal){
+                  var prueba1=dat.data;
+                  var razaPrueba=$rootScope.userFinal.ethnicity;
+                  var urlConsejos="http://192.241.148.57:4000/api/advice";
+                  console.log(prueba1,razaPrueba);
+                  $http.get(urlConsejos)
+                  .success(function(data1){
+                    var consejos={};
+                    var results=[];
+                    consejos=data1;
+                    consejos.filter
+                  for(var j=0; j<consejos.length; j++) {
+
+                    if(consejos[j].ethnicity_type==razaPrueba && consejos[j].min_uv>=prueba1 && consejos[j].max_uv<=prueba1){
+                      
+                    data.list[i].radiacion=dat.data;
+                    data.list[i].consejo=consejos[j]
+
+                    }
+                }                    
+
+
+                console.log("Results==",data);
+
+
+                  })
+                  .error(function(err){
+                    console.log("Error==",err);
+                  })
+                }
+
+
+            })(data);
+
+               console.log("Sucesss=",$scope.forecast.list[i].radiacion);
+
+
             });
 
+          })(data);
 
-         
+
+
+
+
+
+
+
               })(i);
       
-
-
         }
+
+
          
        });
 
@@ -262,4 +313,51 @@ map.addListener("clickMapObject", function(event) {
       return (iconName ? $scope.iconBaseUrl + iconName + '.png' : '');
     };
 
+
+     function initUser(){
+        console.log("Esta en initUser");
+      if(window.localStorage.getItem("user")){
+     var user_id=JSON.parse(window.localStorage.getItem("user")).userId;
+     var authorization=JSON.parse(window.localStorage.getItem("user")).id;
+
+      var urlUser="http://192.241.148.57:4000/api/users/"+user_id;
+      $http({
+        method:"GET",
+        url:urlUser,
+        headers:{
+          'Authorization':authorization
+        }
+      })
+      .success(function(data,status,headers,config){
+        $rootScope.userFinal=data;
+        console.log("Data del Perfil de Usuario",data);
+      })
+      .error(function(err,status,headers,config){
+        console.log("Error=",err);
+        console.log("Config==",config)
+      })
+}
+    }
+
+
+    function consultarConsejos(dataConfig){
+      if($rootScope.userFinal){
+        var urlConsejos="http://192.241.148.57:4000/api/advice";
+        $http.get(urlConsejos)
+        .success(function(data){
+          console.log("Consejos==",consejos)
+       
+        })
+        .error(function(data){
+          console.log("Error==",error);
+        })
+      }
+    }
+
+ 
+
+
   }])
+
+
+

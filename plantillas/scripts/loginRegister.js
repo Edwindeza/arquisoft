@@ -53,6 +53,8 @@ $scope.login=function(){
 $scope.logout=function(){
 console.log("Limpiar");
 localStorage.clear();
+		$window.location.href = '/#/forecast';
+
 }
 
 });
