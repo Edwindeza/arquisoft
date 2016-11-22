@@ -1,6 +1,6 @@
 var app=angular.module("app",[]);
 
-app.controller("login",function($scope,$http){
+app.controller("login",function($scope,$http,$window){
 $scope.user={};
 $scope.userlogin={};
 
@@ -19,6 +19,7 @@ $scope.registrar=function(){
 	$http.post(url,parameter)
 	.success(function(data,status,headers,config){
 		console.log("Sucess==",data)
+		$window.location.href = '/user/login#signin';
 
 	})
 	.error(function(error,status,headers,config){
@@ -38,6 +39,7 @@ $scope.login=function(){
 
 
 		window.localStorage.setItem("user",JSON.stringify(data));
+		$window.location.href = '/#/forecast';
 
 		console.log(window.localStorage);
 
