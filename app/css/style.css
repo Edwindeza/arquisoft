@@ -181,9 +181,32 @@ nav.vertical2 li:hover > ul{
 
 
 
-
-
-
+.listado_clima{
+	padding-top: 50px;
+}
+.listado_clima h2{
+	text-align: center;
+	font-size: 25px;
+	font-weight: bold;
+	letter-spacing: 1px;
+	text-decoration: underline;
+	padding-bottom: 2px;
+	color: #2e9475;
+	padding-bottom: 50px;
+}
+.listado_clima {
+	font-size: 13px;
+}
+.listado_clima .table-header td{
+	background-color: #7DC2AD !important;
+	color: white;
+}
+.listado_clima .table-header{
+	background-color: #2e9475;
+	font-size: 14px;
+	font-weight: bold;
+	letter-spacing: 1px;
+}
 
 
 

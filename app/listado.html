@@ -58,9 +58,10 @@
                 </a>
                 
             </li>
+            </li>
               <li>
                 <a href="/listado"><img class="img-responsive" src="img/inicio/clima.png" alt="">
-                    <b>Listado de Climas</b>
+                    <b>Listado</b>
                 </a>
                 
             </li>
@@ -94,25 +95,41 @@
 
         
             </div> 
-            <div id="page-content-wrapper" class="col-xs-12">
-                <div class="container-fluid">
-                        <div class="col-xs-12 sect-2">
-                            <div class="col-xs-12 sect-2">
-                                <div class="col-xs-12 divs_ini_container">
-                                    <h2>Climas</h2>
-                                    <div class="col-xs-12 div_ini_01 sect-2" >
-                                        <center>
-                                              <div ng-view></div>
-                                        </center>
-                                        <p>
-                                             Demasiada exposición a los rayos ultravioleta o UV puede causar quemaduras solares. Los rayos UV penetran las capas exteriores de la piel y pasan a las capas más profundas, donde pueden dañar o matar las células de la piel. Las personas que tienen poca melanina y se queman muy fácilmente deberían protegerse cubriendo las áreas sensibles usando bloqueador solar, limitando el tiempo total de exposición y limitando el tiempo de exposición entre las 10 a.m. y las 2 p.m. <br> <br>
-                                             La exposición frecuente a los rayos ultravioleta durante varios años es la causa principal del cáncer de piel. Examine su piel frecuentemente para detectar bultos sospechosos o cambios en una lesión ya existente en la piel. La detección y tratamiento a tiempo son fundamentales para incrementar las tasas de curación del cáncer de piel.
-                                        </p>  
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+            <div class="col-xs-12 listado_clima">
+                <h2>Listado de Ciudades según su Clima</h2>
+                <div class="col-xs-12 table-responsive">
+                    <table class="table table-striped table-bordered">
+                        <tr class="table-header">
+                          <td ><center>#</center></td>
+                          <td >Ciudad</td>
+                          <td >Clima</td>
+                          <td >Temperatura</td>
+                          <td >Rayos UV</td>
+                        </tr>
+                        <tr>
+                            <td><center>1</center></td>
+                            <td>Lima</td>
+                            <td>Despejado</td>
+                            <td>25°</td>
+                            <td>13.5</td>
+                        </tr>
+                        <tr class="table-body">
+                            <td><center>2</center></td>
+                            <td>Lima</td>
+                            <td>Nublado</td>
+                            <td>20°</td>
+                            <td>11.5</td>
+                        </tr>
+                        <tr class="table-body">
+                            <td><center>3</center></td>
+                            <td>Lima</td>
+                            <td>Nublado</td>
+                            <td>21°</td>
+                            <td>12.5</td>
+                        </tr>
+                    </table>
                 </div>
+                    
             </div>
         </div>
             
