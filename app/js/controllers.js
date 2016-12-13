@@ -9,25 +9,57 @@ angular.module('openWeatherApp.controllers', [])
     ['$scope','$http','$rootScope','exampleLocations','openWeatherMap','stormLocations','ISO3166','Ciudades','rayosUV',
       function($scope,$http,$rootScope,exampleLocations,openWeatherMap,stormLocations,ISO3166,Ciudades,rayosUV) {
     $rootScope.consejosA=[];
+    $rootScope.ciudades=[];
     $rootScope.userFinal={};
     $scope.message = '';
     $scope.hasState = '';
     $scope.userapp={};
-
+    var appID="46c3231cb97608d8d41ff7bc0e370168";
    $scope.userapp=JSON.parse(localStorage.getItem("user"));
    console.log(localStorage);
    console.log(localStorage.getItem("user"))
     var datos=[];
     // Expose example locations to $scope
    Ciudades.getAll().then(function(res){
+
+
+    console.log("Hubo algo??")
     for(var x=0;x<res.data.list.length;x++){
+      var ciudad={};
+
+
+      ciudad.name=res.data.list[x].name;
+     
+      console.log("Ciudad[i]",ciudad.name);
+
+///////////
+
+
+   $rootScope.forecast = openWeatherMap.queryForecastDaily({
+        location: ciudad.name
+      });
+
+      $scope.datos={};
+
+
+
+
+    console.log("Forecast",$rootScope.forescast);
+///////////
+      $rootScope.ciudades.push($rootScope.forecast);
       datos.push(res.data.list[x].name);
+   
+
     }
         $scope.exampleLocations = datos;
 
+   }).catch(function(err){
+    console.log("Error",err);
    });
 
-  ;
+    
+
+
     $scope.stormLocations = stormLocations;
     $scope.iconBaseUrl = 'http://openweathermap.org/img/w/';
 
@@ -156,7 +188,7 @@ map.addListener("clickMapObject", function(event) {
               var fechax=fecha2.getFullYear()+"-"+fecha2.getMonth()+"-"+dias+"Z";
               var lon=parseInt(data.city.coord.lon);
               var lat=parseInt(data.city.coord.lat);
-              var url="http://api.openweathermap.org/v3/uvi/"+lat+","+lon+"/"+fechax+".json?appid=943d3a75c72ea297aa73f129275d2140";
+              var url="http://api.openweathermap.org/v3/uvi/"+lat+","+lon+"/"+fechax+".json?appid="+appID;
 
 
             $http.get(url)
@@ -229,7 +261,7 @@ map.addListener("clickMapObject", function(event) {
               var fechax=fecha2.getFullYear()+"-"+fecha2.getMonth()+"-"+dias+"Z";
               var lon=parseInt(data.city.coord.lon);
               var lat=parseInt(data.city.coord.lat);
-              var url="http://api.openweathermap.org/v3/uvi/"+lat+","+lon+"/"+fechax+".json?appid=943d3a75c72ea297aa73f129275d2140";
+              var url="http://api.openweathermap.org/v3/uvi/"+lat+","+lon+"/"+fechax+".json?appid="+apiID;
 
               console.log("Linea 233 data antes",data);
               (function(data){
@@ -312,6 +344,7 @@ map.addListener("clickMapObject", function(event) {
     $scope.getIconImageUrl = function(iconName) {
       return (iconName ? $scope.iconBaseUrl + iconName + '.png' : '');
     };
+
 
 
      function initUser(){

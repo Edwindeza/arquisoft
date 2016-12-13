@@ -12,7 +12,7 @@ angular.module('openWeatherApp.services', ['ngResource'])
   .value('stormLocations',['Lima','Huancayo','chaclacayo','Buenos Aires','Brazilia','Caracas'])
  .factory('openWeatherMap', function($resource) {
 
-    var apiKey = '943d3a75c72ea297aa73f129275d2140';
+    var apiKey = '46c3231cb97608d8d41ff7bc0e370168';
     var apiBaseUrl = 'http://api.openweathermap.org/data/2.5/';
     
     return $resource(apiBaseUrl + ':path/:subPath?q=:location&lang=es',
@@ -62,16 +62,17 @@ angular.module('openWeatherApp.services', ['ngResource'])
 
 
   .factory('Ciudades',function($http){
+    var appID="46c3231cb97608d8d41ff7bc0e370168";
    var ciudades={};
      ciudades.getAll=function(){
             
-            return $http.get("http://api.openweathermap.org/data/2.5/box/city?bbox=-81,-16,-72,-5,10&cluster=yes&appid=943d3a75c72ea297aa73f129275d2140")              
+            return $http.get("http://api.openweathermap.org/data/2.5/box/city?bbox=-81,-16,-72,-5,10&cluster=yes&appid="+appID)              
           }
       return ciudades;
   }).
   factory('rayosUV', function($resource) {
     http://api.openweathermap.org/v3/uvi/-15,-77/current.json?appid=943d3a75c72ea297aa73f129275d2140
-    var apiKey = '943d3a75c72ea297aa73f129275d2140';
+    var apiKey = '46c3231cb97608d8d41ff7bc0e370168';
     var apiBaseUrl = 'http://api.openweathermap.org/v3/uvi/';
     
     return $resource(apiBaseUrl + ':lon,:lat/:fecha.json?appid='+apiKey,

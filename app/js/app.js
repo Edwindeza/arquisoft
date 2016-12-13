@@ -11,5 +11,7 @@ angular.module('openWeatherApp', [
 ]).
 config(['$routeProvider', function($routeProvider) {
   $routeProvider.when('/forecast', {templateUrl: 'partials/forecast.html', controller: 'OpenWeatherCtrl'});
+  $routeProvider.when('/listado', {templateUrl: 'partials/listado.html', controller: 'OpenWeatherCtrl'});
+
   $routeProvider.otherwise({redirectTo: '/forecast'});
 }]);
