@@ -16,21 +16,20 @@ angular.module('openWeatherApp.controllers', [])
     $scope.userapp={};
     var appID="46c3231cb97608d8d41ff7bc0e370168";
    $scope.userapp=JSON.parse(localStorage.getItem("user"));
-   console.log(localStorage);
-   console.log(localStorage.getItem("user"))
+   
     var datos=[];
     // Expose example locations to $scope
    Ciudades.getAll().then(function(res){
 
 
-    console.log("Hubo algo??")
+    
     for(var x=0;x<res.data.list.length;x++){
       var ciudad={};
 
 
       ciudad.name=res.data.list[x].name;
      
-      console.log("Ciudad[i]",ciudad.name);
+      
 
 ///////////
 
@@ -39,20 +38,12 @@ angular.module('openWeatherApp.controllers', [])
         location: ciudad.name
       });
 
-      $scope.datos={};
+      
 
 
-
-
-    console.log("Forecast",$rootScope.forescast);
-///////////
-      $rootScope.ciudades.push($rootScope.forecast);
-      datos.push(res.data.list[x].name);
-   
-
-    }
-        $scope.exampleLocations = datos;
-
+         $rootScope.ciudades.push($rootScope.forecast);
+      
+      }
    }).catch(function(err){
     console.log("Error",err);
    });
@@ -74,7 +65,6 @@ angular.module('openWeatherApp.controllers', [])
 
 
 $scope.logout=function(){
-console.log("Limpiar");
 localStorage.clear();
 }
 
@@ -128,10 +118,14 @@ localStorage.clear();
     } ]
   } );
 
-
+function encontrar(ciudades,forecast){
+for(var i=0;i<ciudades.length;i++){
+  if(ciudades[i].city.name==forecast.city.name)return 1
+}
+return 0;
+}
   function updateHeatmap( event ) {
     var map = event.chart;
-    console.log(map.dataProvider.areas);
     if ( map.dataGenerated )
       return;
     if ( map.dataProvider.areas.length === 0 ) {
@@ -172,8 +166,6 @@ map.addListener("clickMapObject", function(event) {
       });
 
    $rootScope.forecast.$promise.then(function(data){
-        console.log("DATA DENMTRO FORECAST");
-        console.log(data);
  
           (function(){
               var fecha=Date(data.list[0].dt);
@@ -200,7 +192,6 @@ map.addListener("clickMapObject", function(event) {
 
           
           })();
-        console.log(data.list[0]);
 
 
        });
@@ -261,22 +252,18 @@ map.addListener("clickMapObject", function(event) {
               var fechax=fecha2.getFullYear()+"-"+fecha2.getMonth()+"-"+dias+"Z";
               var lon=parseInt(data.city.coord.lon);
               var lat=parseInt(data.city.coord.lat);
+              var apiID="a08342304f0c9688eea03eaf4c8aa865";
+              console.log(apiID);
               var url="http://api.openweathermap.org/v3/uvi/"+lat+","+lon+"/"+fechax+".json?appid="+apiID;
 
-              console.log("Linea 233 data antes",data);
               (function(data){
             $http.get(url)
             .success(function (dat) {
-
-                console.log("Linea 238 data luego",data);
-
                 (function(data){
-                  console.log("Linea 241 data luego xdD",data)
                 if($rootScope.userFinal){
                   var prueba1=dat.data;
                   var razaPrueba=$rootScope.userFinal.ethnicity;
                   var urlConsejos="http://192.241.148.57:4000/api/advice";
-                  console.log(prueba1,razaPrueba);
                   $http.get(urlConsejos)
                   .success(function(data1){
                     var consejos={};
@@ -284,53 +271,25 @@ map.addListener("clickMapObject", function(event) {
                     consejos=data1;
                     consejos.filter
                   for(var j=0; j<consejos.length; j++) {
-
-                    if(consejos[j].ethnicity_type==razaPrueba && consejos[j].min_uv>=prueba1 && consejos[j].max_uv<=prueba1){
-                      
+                    if(consejos[j].ethnicity_type==razaPrueba && consejos[j].min_uv>=prueba1 && consejos[j].max_uv<=prueba1){                      
                     data.list[i].radiacion=dat.data;
                     data.list[i].consejo=consejos[j]
-
                     }
-                }                    
-
-
-                console.log("Results==",data);
-
-
+                }
                   })
                   .error(function(err){
                     console.log("Error==",err);
                   })
                 }
-
-
             })(data);
-
                console.log("Sucesss=",$scope.forecast.list[i].radiacion);
-
-
             });
-
           })(data);
 
-
-
-
-
-
-
-
-              })(i);
-      
+              })(i);      
         }
-
-
-         
        });
-
     }
-
-
     function getRandomArbitrary(min, max) {
     return Math.random() * (max - min) + min;
   }
@@ -388,6 +347,7 @@ map.addListener("clickMapObject", function(event) {
     }
 
  
+
 
 
   }])

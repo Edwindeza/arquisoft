@@ -1,3 +1,26 @@
+.pag_btn {
+    border: solid 1px;
+    border-color: rgb(0, 0, 255);
+    color: rgb(0, 0, 255);
+    background-color: rgb(255, 255, 255);
+}
+ 
+.pag_btn_des {
+    border: solid 1px;
+    border-color: rgb(200, 200, 200);
+    color: rgb(200, 200, 200);
+    background-color: rgb(245, 245, 245);
+}
+ 
+.pag_num {
+    border: solid 1px;
+    border-color: rgb(0, 0, 255);
+    color: rgb(255, 255, 255);
+    background-color: rgb(0, 0, 255);
+}
+
+
+
 
 .panel-primary > .panel-heading{
 	background-color: #68A697;

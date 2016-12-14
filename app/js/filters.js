@@ -14,3 +14,10 @@ angular.module('openWeatherApp.filters', [])
       return (angular.isUndefined(input) || input == '') ? phvalue : input;
     };
   }])
+
+  .filter('startFrom', function() {
+    return function(input, start) {
+        start = +start; //parse to int
+        return input.slice(start);
+    }
+  });

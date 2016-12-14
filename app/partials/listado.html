@@ -1,29 +1,25 @@
-            <div class="col-xs-12 listado_clima">
-                <h2>Listado de Ciudades según su Clima</h2>
-
-        
-                <div class="col-xs-12 table-responsive">
-                    <table class="table table-striped table-bordered">
-                        <tr class="table-header">
-                          <td ><center>#</center></td>
-                          <td >Ciudad</td>
-                          <td >Clima</td>
-                          <td >Temperatura</td>
-                        </tr>
-
-                            <tr ng-repeat="fore in ciudades">
-                            <td></td>
-                            <td>{{fore.city.name}}</td>
-                            <td>{{fore.list[0].weather[0].description}}</td>
-                            <td>{{fore.list[0].temp.day}}</td>
-
-                            </tr>
-                    </table>
-                </div>
+<div class="col-xs-12 listado_clima">
+    <h2>Listado de Ciudades según su Clima</h2>    
+    <div class="col-xs-12 table-responsive">
                     
-            </div>
-
-
+        <table  class="table table-striped table-bordered" >
+            <thead>
+                <tr class="table-header">
+                    <th >Ciudad</th>
+                    <th >Clima</th>
+                    <th >Temperatura</th>
+                </tr>
+            </thead>
+            <tbody id="Tabla1">
+                <tr ng-repeat="fore in ciudades  | orderBy:'-list[0].temp.day'">
+                    <td>{{fore.city.name}}</td>
+                    <td>{{fore.list[0].weather[0].description}}</td>
+                    <td>{{fore.list[0].temp.day}}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
 
 
 
@@ -49,16 +45,6 @@
 <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
 <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
 <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
-
-<!-- Chart code -->
-<script>
-/**
- * This demo uses our own method of determining user's location
- * It is not public web service that you can use
- * You'll need to find your own. We recommend http://www.maxmind.com
- */
-
-</script>
 
 </body>
 </html>
